@@ -696,6 +696,7 @@
       let currentTrack = '';
       let unavailableTracks = new Set();
       let preferences = loadPreferences();
+      let translations = {};
 
       function loadPreferences() {
         try {
@@ -728,7 +729,7 @@
         const slider = document.getElementById('volumeSlider');
         const output = document.getElementById('volumeOutput');
         toggle.checked = Boolean(preferences.music);
-        status.textContent = preferences.music ? 'On' : 'Off';
+        status.textContent = t(preferences.music ? 'On' : 'Off');
         slider.value = String(preferences.volume);
         output.textContent = preferences.volume + '%';
       }
@@ -815,17 +816,18 @@
       // Language button: same behaviour as TgCyclingLanguageButton in the apps. It
       // cycles each language's own name every 2 seconds; clicking picks the name shown.
       // The choice is saved under the key the Flutter web games read (shared_preferences
-      // stores 'flutter.' + key with a JSON-encoded value), so the games open in it.
+      // stores 'flutter.' + key with a JSON-encoded value), so the games open in it, and
+      // this page is translated from i18n/<code>.json (keyed by the English text).
       const languages = [
-        { code: 'en', lang: 'en', name: 'English', note: 'Games will open in English.' },
-        { code: 'es', lang: 'es', name: 'Español', note: 'Los juegos se abrirán en español.' },
-        { code: 'fr', lang: 'fr', name: 'Français', note: 'Les jeux s’ouvriront en français.' },
-        { code: 'de', lang: 'de', name: 'Deutsch', note: 'Die Spiele starten auf Deutsch.' },
-        { code: 'pt_BR', lang: 'pt-BR', name: 'Português (Brasil)', note: 'Os jogos abrirão em português.' },
-        { code: 'ja', lang: 'ja', name: '日本語', note: 'ゲームは日本語で開きます。' },
-        { code: 'hi', lang: 'hi', name: 'हिन्दी', note: 'गेम हिन्दी में खुलेंगे।' },
-        { code: 'id', lang: 'id', name: 'Bahasa Indonesia', note: 'Game akan dibuka dalam Bahasa Indonesia.' },
-        { code: 'vi', lang: 'vi', name: 'Tiếng Việt', note: 'Trò chơi sẽ mở bằng tiếng Việt.' }
+        { code: 'en', lang: 'en', name: 'English', note: 'This page and the games are now in English.' },
+        { code: 'es', lang: 'es', name: 'Español', note: 'Esta página y los juegos ahora están en español.' },
+        { code: 'fr', lang: 'fr', name: 'Français', note: 'Cette page et les jeux sont maintenant en français.' },
+        { code: 'de', lang: 'de', name: 'Deutsch', note: 'Diese Seite und die Spiele sind jetzt auf Deutsch.' },
+        { code: 'pt_BR', lang: 'pt-BR', name: 'Português (Brasil)', note: 'Esta página e os jogos agora estão em português.' },
+        { code: 'ja', lang: 'ja', name: '日本語', note: 'このページとゲームは日本語で表示されます。' },
+        { code: 'hi', lang: 'hi', name: 'हिन्दी', note: 'यह पेज और गेम अब हिन्दी में हैं।' },
+        { code: 'id', lang: 'id', name: 'Bahasa Indonesia', note: 'Halaman ini dan game sekarang dalam Bahasa Indonesia.' },
+        { code: 'vi', lang: 'vi', name: 'Tiếng Việt', note: 'Trang này và các trò chơi giờ đã bằng tiếng Việt.' }
       ];
       const languageKey = 'flutter.tg.locale.user_override';
       const languageButton = document.getElementById('languageButton');
@@ -849,24 +851,101 @@
         return 0;
       }
 
+      // Page translation. Text nodes and alt/aria-label attributes keep their English
+      // originals, so switching back to English (or to another language) is exact.
+      const templates = [
+        [/^Play (.+) Online$/, 'Play {0} Online'],
+        [/^(.+) during a hand$/, '{0} during a hand'],
+        [/^(.+) showdown$/, '{0} showdown'],
+        [/^(.+) hand recap$/, '{0} hand recap']
+      ];
+      const translationCache = { en: {} };
+      const textOriginals = [];
+      const attrOriginals = [];
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const pageOriginals = { title: document.title, description: metaDescription ? metaDescription.content : '' };
+      let pageLanguage = 'en';
+      let translationRequest = 0;
+
+      function t(english) {
+        const key = english.replace(/\s+/g, ' ').trim();
+        if (translations[key]) return translations[key];
+        for (const [pattern, template] of templates) {
+          const match = key.match(pattern);
+          if (match && translations[template]) return translations[template].replace('{0}', match[1]);
+        }
+        return english;
+      }
+
+      function collectTranslatable() {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+          acceptNode: function (node) {
+            const parent = node.parentElement;
+            if (!parent || parent.closest('script, style, #languageName, #languageNote, #musicStatus, [translate="no"]')) return NodeFilter.FILTER_REJECT;
+            return /[A-Za-z]/.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+          }
+        });
+        while (walker.nextNode()) textOriginals.push([walker.currentNode, walker.currentNode.nodeValue]);
+        document.querySelectorAll('[alt], [aria-label]').forEach(function (element) {
+          if (element === languageButton) return;
+          ['alt', 'aria-label'].forEach(function (name) {
+            if (element.hasAttribute(name)) attrOriginals.push([element, name, element.getAttribute(name)]);
+          });
+        });
+      }
+
+      function renderTranslations() {
+        textOriginals.forEach(function ([node, original]) {
+          const parts = original.match(/^(\s*)([\s\S]*?)(\s*)$/);
+          node.nodeValue = parts[1] + t(parts[2]) + parts[3];
+        });
+        attrOriginals.forEach(function ([element, name, original]) { element.setAttribute(name, t(original)); });
+        document.title = t(pageOriginals.title);
+        if (metaDescription) metaDescription.content = t(pageOriginals.description);
+        document.documentElement.lang = pageLanguage;
+        updateAudioLabels();
+        showLanguage(languageIndex);
+      }
+
+      function setPageLanguage(language) {
+        const request = ++translationRequest;
+        const ready = translationCache[language.code]
+          ? Promise.resolve(translationCache[language.code])
+          : fetch('i18n/' + language.code + '.json').then(function (response) {
+              if (!response.ok) throw new Error(response.status);
+              return response.json();
+            }).then(function (table) { translationCache[language.code] = table; return table; });
+        return ready.then(function (table) {
+          if (request !== translationRequest) return;
+          translations = table;
+          pageLanguage = language.lang;
+          renderTranslations();
+        }).catch(function () {});
+      }
+
       function showLanguage(index) {
         const language = languages[index];
         languageIndex = index;
         languageName.textContent = language.name;
         languageName.lang = language.lang;
-        languageButton.setAttribute('aria-label', 'Language: ' + language.name + '. Select to use this language in the games.');
+        languageButton.setAttribute('aria-label', t('Language') + ': ' + language.name);
       }
 
       languageButton.addEventListener('click', function () {
         const language = languages[languageIndex];
         try { localStorage.setItem(languageKey, JSON.stringify(language.code)); } catch (_) {}
-        languageNote.lang = language.lang;
-        languageNote.textContent = language.note;
+        setPageLanguage(language).then(function () {
+          languageNote.lang = language.lang;
+          languageNote.textContent = language.note;
+        });
       });
       // Hold the name still while the pointer or keyboard focus is on the button.
       ['mouseenter', 'focus'].forEach(function (type) { languageButton.addEventListener(type, function () { languagePaused = true; }); });
       ['mouseleave', 'blur'].forEach(function (type) { languageButton.addEventListener(type, function () { languagePaused = false; }); });
-      showLanguage(savedLanguageIndex());
+      collectTranslatable();
+      const startingLanguage = savedLanguageIndex();
+      showLanguage(startingLanguage);
+      if (startingLanguage !== 0) setPageLanguage(languages[startingLanguage]);
       window.setInterval(function () {
         if (!languagePaused) showLanguage((languageIndex + 1) % languages.length);
       }, 2000);
