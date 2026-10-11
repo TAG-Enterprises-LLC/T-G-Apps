@@ -107236,7 +107236,7 @@ break
 case 3:s=5
 return A.j(o.co(),$async$wu)
 case 5:case 4:s=6
-return A.j(A.aSJ(A.iv("https://www.tagenterprisesapps.com/",0,null),"_top"),$async$wu)
+return A.j(A.aSJ(A.iv("https://t-g-apps.com/",0,null),"_top"),$async$wu)
 case 6:s=1
 break
 case 1:return A.o(q,r)}})
