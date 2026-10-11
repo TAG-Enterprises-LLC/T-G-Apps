@@ -178,6 +178,9 @@
     .gold-button { color: #063a25; background: #ffd966; }
     .ghost-button { color: #063a25; background: #fff8df; }
     .gold-button:hover, .ghost-button:hover { background: #ffe99b; }
+    .language-button { gap: 8px; min-width: 13.5em; }
+    .language-button svg { flex: none; width: 20px; height: 20px; fill: currentColor; }
+    .language-note { margin: 10px 0 0 0; color: #ffd966; font-weight: 700; min-height: 1.45em; }
     .play-status { display: inline-block; padding: 9px 12px; border: 1px solid #d6a633; border-radius: 9px; background: #fff8df; color: #4b5563; font-weight: 700; }
     .menu-note, .restriction-note { padding: 12px; border-left: 4px solid #d6a633; border-radius: 6px; background: #fff8df; }
     .menu-note strong { color: #063a25; }
@@ -215,7 +218,8 @@
         <a href="#house-of-cards">T-G-Apps House of Cards</a>
         <a href="#boneyard">T-G-Apps Boneyard</a>
       </nav>
-      <div class="play-actions"><a class="gold-button" href="play_tag_yz.html">Play YZ Online</a><a class="gold-button" href="#house-of-cards">Explore Card Games</a><a class="gold-button" href="#boneyard">Explore Dice &amp; Tiles</a></div>
+      <div class="play-actions"><a class="gold-button" href="play_tag_yz.html">Play YZ Online</a><a class="gold-button" href="#house-of-cards">Explore Card Games</a><a class="gold-button" href="#boneyard">Explore Dice &amp; Tiles</a><button class="gold-button language-button" id="languageButton" type="button" aria-describedby="languageNote"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg><span id="languageName" lang="en">English</span></button></div>
+      <p class="language-note" id="languageNote" aria-live="polite"></p>
     </section>
 
     <section class="card">
@@ -807,6 +811,65 @@
           else warning.style.display = 'block';
         }, 300);
       });
+
+      // Language button: same behaviour as TgCyclingLanguageButton in the apps. It
+      // cycles each language's own name every 2 seconds; clicking picks the name shown.
+      // The choice is saved under the key the Flutter web games read (shared_preferences
+      // stores 'flutter.' + key with a JSON-encoded value), so the games open in it.
+      const languages = [
+        { code: 'en', lang: 'en', name: 'English', note: 'Games will open in English.' },
+        { code: 'es', lang: 'es', name: 'Español', note: 'Los juegos se abrirán en español.' },
+        { code: 'fr', lang: 'fr', name: 'Français', note: 'Les jeux s’ouvriront en français.' },
+        { code: 'de', lang: 'de', name: 'Deutsch', note: 'Die Spiele starten auf Deutsch.' },
+        { code: 'pt_BR', lang: 'pt-BR', name: 'Português (Brasil)', note: 'Os jogos abrirão em português.' },
+        { code: 'ja', lang: 'ja', name: '日本語', note: 'ゲームは日本語で開きます。' },
+        { code: 'hi', lang: 'hi', name: 'हिन्दी', note: 'गेम हिन्दी में खुलेंगे।' },
+        { code: 'id', lang: 'id', name: 'Bahasa Indonesia', note: 'Game akan dibuka dalam Bahasa Indonesia.' },
+        { code: 'vi', lang: 'vi', name: 'Tiếng Việt', note: 'Trò chơi sẽ mở bằng tiếng Việt.' }
+      ];
+      const languageKey = 'flutter.tg.locale.user_override';
+      const languageButton = document.getElementById('languageButton');
+      const languageName = document.getElementById('languageName');
+      const languageNote = document.getElementById('languageNote');
+      let languageIndex = 0;
+      let languagePaused = false;
+
+      function savedLanguageIndex() {
+        let code = null;
+        try { code = JSON.parse(localStorage.getItem(languageKey) || 'null'); } catch (_) {}
+        if (code === 'pt' || code === 'pt-BR') code = 'pt_BR';
+        let index = languages.findIndex(function (language) { return language.code === code; });
+        if (index >= 0) return index;
+        const browserLanguages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+        for (const tag of browserLanguages) {
+          const base = String(tag).toLowerCase().split(/[-_]/)[0];
+          index = languages.findIndex(function (language) { return language.lang.split('-')[0] === base; });
+          if (index >= 0) return index;
+        }
+        return 0;
+      }
+
+      function showLanguage(index) {
+        const language = languages[index];
+        languageIndex = index;
+        languageName.textContent = language.name;
+        languageName.lang = language.lang;
+        languageButton.setAttribute('aria-label', 'Language: ' + language.name + '. Select to use this language in the games.');
+      }
+
+      languageButton.addEventListener('click', function () {
+        const language = languages[languageIndex];
+        try { localStorage.setItem(languageKey, JSON.stringify(language.code)); } catch (_) {}
+        languageNote.lang = language.lang;
+        languageNote.textContent = language.note;
+      });
+      // Hold the name still while the pointer or keyboard focus is on the button.
+      ['mouseenter', 'focus'].forEach(function (type) { languageButton.addEventListener(type, function () { languagePaused = true; }); });
+      ['mouseleave', 'blur'].forEach(function (type) { languageButton.addEventListener(type, function () { languagePaused = false; }); });
+      showLanguage(savedLanguageIndex());
+      window.setInterval(function () {
+        if (!languagePaused) showLanguage((languageIndex + 1) % languages.length);
+      }, 2000);
 
       applyTheme(preferences.theme);
       updateAudioLabels();
