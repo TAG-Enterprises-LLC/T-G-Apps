@@ -105854,7 +105854,7 @@ VC(a,b,c,d){var s=c.a,r=c.b
 return A.DK(null,a,b*(c.d-r),null,d*s,null,b*r,d*(c.c-s))}}
 A.aHF.prototype={
 $2(a,b){var s=null,r=b.b,q=b.d,p=this.a,o=p.c,n=r*0.13
-return A.j6(B.cy,A.b([A.V8(0,A.aig("packages/tag_game_hints/assets/images/tag_hint_board.png",s,B.dp,B.q3,s,s,s,s,s)),p.VC(A.aWm(o.a,0.95,r*0.122,2,B.ba),q,B.ahb,r),p.VC(A.aWm(o.b,1.05,r*0.062,s,B.ba),q,B.aha,r),A.DK(s,A.jy(B.aL,A.d4(s,n,n),B.aB,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.aHE(a),s,s,s,s,s,s),s,s,r*0.02,s,q*0.015,s)],t.p),B.x,B.c4,s)},
+return A.j6(B.cy,A.b([A.V8(0,A.aig("packages/tag_game_hints/assets/images/max_hint_board.png",s,B.dp,B.q3,s,s,s,s,s)),p.VC(A.aWm(o.a,0.95,r*0.122,2,B.ba),q,B.ahb,r),p.VC(A.aWm(o.b,1.05,r*0.062,s,B.ba),q,B.aha,r),A.DK(s,A.jy(B.aL,A.d4(s,n,n),B.aB,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.aHE(a),s,s,s,s,s,s),s,s,r*0.02,s,q*0.015,s)],t.p),B.x,B.c4,s)},
 $S:242}
 A.aHE.prototype={
 $0(){return A.e9(this.a,!1).eR()},

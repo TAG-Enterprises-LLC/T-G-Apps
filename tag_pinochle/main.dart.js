@@ -104936,7 +104936,7 @@ WI(a,b,c,d){var s=c.a,r=c.b
 return A.EQ(null,a,b*(c.d-r),null,d*s,null,b*r,d*(c.c-s))}}
 A.aJI.prototype={
 $2(a,b){var s=null,r=b.b,q=b.d,p=this.a,o=p.c,n=r*0.13
-return A.iC(B.ck,A.b([A.Wg(0,A.SG("packages/tag_game_hints/assets/images/tag_hint_board.png",s,B.d1,B.pR,s,s,s,s,s)),p.WI(A.aY8(o.a,0.95,r*0.122,2,B.ar),q,B.ad0,r),p.WI(A.aY8(o.b,1.05,r*0.062,s,B.ar),q,B.ad_,r),A.EQ(s,A.mq(B.aW,A.cL(s,n,n),B.aF,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.aJH(a),s,s,s,s,s,s),s,s,r*0.02,s,q*0.015,s)],t.p),B.x,B.bU,s)},
+return A.iC(B.ck,A.b([A.Wg(0,A.SG("packages/tag_game_hints/assets/images/max_hint_board.png",s,B.d1,B.pR,s,s,s,s,s)),p.WI(A.aY8(o.a,0.95,r*0.122,2,B.ar),q,B.ad0,r),p.WI(A.aY8(o.b,1.05,r*0.062,s,B.ar),q,B.ad_,r),A.EQ(s,A.mq(B.aW,A.cL(s,n,n),B.aF,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.aJH(a),s,s,s,s,s,s),s,s,r*0.02,s,q*0.015,s)],t.p),B.x,B.bU,s)},
 $S:232}
 A.aJH.prototype={
 $0(){return A.cY(this.a,!1).f5()},
