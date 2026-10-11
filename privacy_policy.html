@@ -1,394 +1,355 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <title>TAG Enterprises LLC - Privacy Policy</title>
+  <title>T-G-Apps LLC Privacy Policy</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
+    body {
       margin: 0;
-      min-height: 100%;
+      padding: 16px;
+      background: #f6f1e4;
+      color: #111827;
       font-family: Arial, Helvetica, sans-serif;
-      color: white;
-      background: #001321;
+      font-size: 16px;
+      line-height: 1.45;
     }
 
-    .overlay {
-      min-height: 100vh;
-      background: linear-gradient(
-        to bottom,
-        rgba(0, 10, 20, 0.78),
-        rgba(0, 15, 30, 0.90)
-      );
-      padding: 24px;
-    }
-
-    .container {
-      max-width: 1050px;
+    .tag-policy-page {
+      width: 100%;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 16px;
+    .hero,
+    .card {
+      display: block;
+      width: auto;
+      margin: 0 0 14px 0;
+      padding: 14px;
+      border: 1px solid #d6a633;
+      border-radius: 12px;
+      background: #ffffff;
     }
 
-    .title {
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 900;
-      color: white;
-      text-shadow:
-        0 0 10px #0d8bff,
-        0 0 20px #0d8bff,
-        0 4px 10px black;
+    .hero {
+      background: #063a25;
+      color: #ffffff;
     }
 
-    .home-button {
-      border: 1px solid #3ba7ff;
-      border-radius: 8px;
-      padding: 12px 22px;
-      background: linear-gradient(#0b83ff, #0458b8);
-      color: white;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.45);
+    .badge {
+      display: none;
     }
 
-    .home-button:hover {
-      filter: brightness(1.12);
+    h1,
+    h2,
+    h3 {
+      margin: 0 0 10px 0;
+      color: #063a25;
     }
 
-    .policy-panel {
-      background: rgba(0, 8, 20, 0.82);
-      border: 1px solid rgba(80, 160, 255, 0.45);
-      border-radius: 16px;
-      padding: 36px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+    .hero h1,
+    .hero h2 {
+      color: #ffd966;
     }
 
-    h1 {
-      margin-top: 0;
-      font-size: 2.5rem;
-      color: #9fd6ff;
-      text-shadow: 0 2px 8px black;
-    }
-
-    h2 {
-      margin-top: 34px;
-      margin-bottom: 14px;
-      color: #56b8ff;
-      font-size: 1.5rem;
-    }
-
-    p,
-    li {
-      font-size: 1.08rem;
-      line-height: 1.7;
-      color: #f0f7ff;
+    p {
+      margin: 0 0 10px 0;
     }
 
     ul {
-      padding-left: 24px;
+      margin: 0 0 10px 22px;
+      padding: 0;
     }
 
-    .effective-date {
-      font-size: 1.1rem;
-      color: #91f0ff;
-      margin-bottom: 28px;
-    }
-
-    .app-list {
-      background: rgba(255,255,255,0.05);
-      border-left: 4px solid #3ba7ff;
-      padding: 16px 20px;
-      margin: 20px 0;
-      border-radius: 8px;
-    }
-
-    .contact-box {
-      margin-top: 36px;
-      padding: 20px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
+    li {
+      margin-bottom: 5px;
     }
 
     a {
-      color: #8ed6ff;
+      color: #0b63ce;
+      word-break: break-word;
     }
 
-    footer {
+    .contact-email {
+      font-size: 15px;
+    }
+
+    .footer {
       text-align: center;
-      margin-top: 28px;
-      color: #b5dfff;
-      font-size: 0.95rem;
-    }
-
-    @media (max-width: 700px) {
-      .overlay {
-        padding: 12px;
-      }
-
-      .policy-panel {
-        padding: 22px;
-      }
-
-      .top-bar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
+      color: #ffffff;
+      background: #063a25;
+      padding: 12px;
+      border-radius: 12px;
     }
   </style>
+
+  <style>
+    .site-nav { max-width: 900px; margin: 0 auto 12px auto; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+    .site-nav a { color: #063a25; font-weight: 700; text-decoration: none; }
+    .site-nav a:hover, .site-nav a:focus { text-decoration: underline; }
+  </style>
+
+  <script>
+    (function () {
+      try {
+        if (/[?&]lang=en\b/.test(location.search)) return;
+        var code = null;
+        try { code = JSON.parse(localStorage.getItem('flutter.tg.locale.user_override') || 'null'); } catch (_) {}
+        var tags = code ? [String(code)] : (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en']);
+        var available = ['es', 'fr', 'de', 'pt', 'ja', 'hi', 'id', 'vi'];
+        for (var i = 0; i < tags.length; i++) {
+          var base = String(tags[i]).toLowerCase().split(/[-_]/)[0];
+          if (base === 'en') return;
+          if (available.indexOf(base) >= 0) { location.replace('privacy_policy_' + base + '.html'); return; }
+        }
+      } catch (_) {}
+    }());
+  </script>
 </head>
 
 <body>
-  <div class="overlay">
-    <div class="container">
+  <nav class="site-nav"><a href="/">&larr; Back to T-G-Apps Games</a></nav>
 
-      <div class="top-bar">
-        <div class="title">TAG Enterprises LLC</div>
+  <div class="tag-policy-page">
 
-        <button
-          class="home-button"
-          onclick="window.location.href='index.html'">
-          ← Return to Home
-        </button>
+    <section class="hero">
+      <div class="badge">
+        Visual HTML version: 2026-08-22B
       </div>
 
-      <div class="policy-panel">
+      <h1>T-G-Apps LLC</h1>
+      <h2>Privacy Policy</h2>
 
-        <h1>Privacy Policy</h1>
+      <p class="subtitle">
+        Privacy Policy for T-G-Apps LLC apps, games, websites,
+        and related services.
+      </p>
 
-        <div class="effective-date">
-          Effective Date: May 14, 2026
-        </div>
+      <p class="effective">
+        Effective Date: June 2, 2026
+      </p>
+    </section>
 
-        <p>
-          TAG Enterprises LLC (“we,” “our,” or “us”) respects your privacy.
-          This Privacy Policy explains how information may be collected,
-          used, and shared when you use our mobile applications, games,
-          websites, and related services.
-        </p>
+    <section class="card">
+      <p>
+        T-G-Apps LLC (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) respects your privacy.
+        This Privacy Policy explains how information may be collected,
+        used, and shared when you use our mobile applications, games,
+        websites, and related services.
+      </p>
+    </section>
 
-        <div class="app-list">
-          <strong>This policy applies to all current and future TAG Enterprises LLC products, including:</strong>
+    <section class="card accent">
+      <h3>Covered Products</h3>
 
-          <ul>
-            <li>TAG-YZ</li>
-            <li>TAG_21</li>
-            <li>Card Collection</li>
-            <li>Mahjong Collection</li>
-            <li>Domino Masters</li>
-            <li>Related websites and online services</li>
-          </ul>
-        </div>
+      <ul>
+        <li>T-G-Apps 21</li>
+        <li>T-G-Apps Holdem</li>
+        <li>T-G-Apps YZ</li>
+        <li>Card Collection</li>
+        <li>Mahjong Collection</li>
+        <li>Domino Masters</li>
+        <li>Related websites and online services</li>
+      </ul>
+    </section>
 
-        <h2>1. Information We Collect</h2>
+    <section class="card">
+      <h3>1. Information We Collect</h3>
 
-        <p>
-          Our Services may collect limited information automatically through
-          third-party service providers.
-        </p>
+      <p>
+        Our Services may collect limited information automatically
+        through third-party service providers.
+      </p>
 
-        <ul>
-          <li>Device type</li>
-          <li>Operating system version</li>
-          <li>Mobile advertising identifiers</li>
-          <li>IP address</li>
-          <li>Approximate geographic region</li>
-          <li>App usage information</li>
-          <li>Crash reports and diagnostics</li>
-          <li>Ad interaction information</li>
-        </ul>
+      <ul>
+        <li>Device type</li>
+        <li>Operating system version</li>
+        <li>Mobile advertising identifiers</li>
+        <li>IP address</li>
+        <li>Approximate geographic region</li>
+        <li>App usage information</li>
+        <li>Crash reports and diagnostics</li>
+        <li>Ad interaction information</li>
+      </ul>
 
-        <p>
-          We generally do not collect personally identifying information
-          such as your real name, physical address, or phone number unless
-          you voluntarily provide it.
-        </p>
+      <p>
+        We generally do not collect personally identifying information
+        such as your real name, physical address, or phone number unless
+        you voluntarily provide it.
+      </p>
+    </section>
 
-        <h2>2. Advertising</h2>
+    <section class="card">
+      <h3>2. Advertising</h3>
 
-        <p>
-          Our Services may display advertisements provided by third-party
-          advertising partners including Google AdMob.
-        </p>
+      <p>
+        Our Services may display advertisements provided by third-party
+        advertising partners, including Google AdMob.
+      </p>
 
-        <p>
-          Advertising providers may use cookies, mobile advertising
-          identifiers, and similar technologies to:
-        </p>
+      <p>
+        Advertising providers may use cookies, mobile advertising
+        identifiers, and similar technologies to deliver advertisements,
+        measure ad performance, limit repetitive advertisements, and
+        personalize advertising content.
+      </p>
 
-        <ul>
-          <li>Deliver advertisements</li>
-          <li>Measure ad performance</li>
-          <li>Limit repetitive advertisements</li>
-          <li>Personalize advertising content</li>
-        </ul>
+      <p>
+        Google may collect and process data in accordance with its own
+        privacy policies.
+      </p>
 
-        <p>
-          Google may collect and process data in accordance with its own
-          privacy policies.
-        </p>
+      <p>
+        <a href="https://policies.google.com/privacy">
+          Google Privacy Policy
+        </a>
+      </p>
 
-        <p>
-          Google Privacy Policy:<br />
-          <a href="https://policies.google.com/privacy" target="_blank">
-            https://policies.google.com/privacy
-          </a>
-        </p>
+      <p>
+        <a href="https://policies.google.com/technologies/partner-sites">
+          How Google Uses Information from Sites and Apps
+        </a>
+      </p>
+    </section>
 
-        <p>
-          How Google Uses Information from Sites and Apps:<br />
-          <a
-            href="https://policies.google.com/technologies/partner-sites"
-            target="_blank">
-            https://policies.google.com/technologies/partner-sites
-          </a>
-        </p>
+    <section class="card">
+      <h3>3. Analytics and Diagnostics</h3>
 
-        <h2>3. Analytics and Diagnostics</h2>
+      <p>
+        We may use third-party analytics or crash reporting services to
+        improve our Services. These services may collect device
+        information, usage statistics, error reports, and performance
+        diagnostics.
+      </p>
 
-        <p>
-          We may use third-party analytics or crash reporting services
-          to improve our Services.
-        </p>
+      <p>
+        This information helps us improve game stability, usability,
+        and performance.
+      </p>
+    </section>
 
-        <p>
-          These services may collect:
-        </p>
+    <section class="card">
+      <h3>4. Cookies and Similar Technologies</h3>
 
-        <ul>
-          <li>Device information</li>
-          <li>Usage statistics</li>
-          <li>Error reports</li>
-          <li>Performance diagnostics</li>
-        </ul>
+      <p>
+        Our websites and advertising providers may use cookies, local
+        storage, mobile advertising identifiers, and similar technologies
+        to remember preferences, measure website traffic, support
+        advertising functionality, and improve user experience.
+      </p>
 
-        <h2>4. Cookies and Similar Technologies</h2>
+      <p>
+        Users may disable cookies through browser settings, though some
+        features may not function properly.
+      </p>
+    </section>
 
-        <p>
-          Our website and advertising providers may use:
-        </p>
+    <section class="card">
+      <h3>5. Children&#39;s Privacy</h3>
 
-        <ul>
-          <li>Cookies</li>
-          <li>Local storage</li>
-          <li>Mobile advertising identifiers</li>
-          <li>Similar technologies</li>
-        </ul>
+      <p>
+        Our Services are intended for a general audience. We do not
+        knowingly collect personal information from children under the
+        age of 13. If we become aware that personal information from a
+        child under 13 has been collected improperly, we will take
+        reasonable steps to delete such information.
+      </p>
 
-        <p>
-          These technologies help:
-        </p>
+      <p>
+        Parents who believe their child has provided personal information
+        may contact us using the information below.
+      </p>
+    </section>
 
-        <ul>
-          <li>Remember preferences</li>
-          <li>Measure website traffic</li>
-          <li>Support advertising functionality</li>
-          <li>Improve user experience</li>
-        </ul>
+    <section class="card">
+      <h3>6. Data Sharing</h3>
 
-        <h2>5. Children’s Privacy</h2>
+      <p>
+        We do not sell personal information. We may share limited data
+        with advertising providers, analytics providers, hosting
+        providers, and legal authorities when required by law.
+      </p>
 
-        <p>
-          Our Services are intended for a general audience.
-          We do not knowingly collect personal information from
-          children under the age of 13.
-        </p>
+      <p>
+        Such sharing is limited to what is reasonably necessary to
+        operate and improve the Services.
+      </p>
+    </section>
 
-        <h2>6. Data Sharing</h2>
+    <section class="card">
+      <h3>7. Data Security</h3>
 
-        <p>
-          We do not sell personal information.
-        </p>
+      <p>
+        We take reasonable measures to help protect information associated
+        with our Services. However, no method of electronic transmission
+        or storage is completely secure, and we cannot guarantee absolute
+        security.
+      </p>
+    </section>
 
-        <p>
-          We may share limited data with:
-        </p>
+    <section class="card">
+      <h3>8. Third-Party Links and Services</h3>
 
-        <ul>
-          <li>Advertising providers</li>
-          <li>Analytics providers</li>
-          <li>Hosting providers</li>
-          <li>Legal authorities when required by law</li>
-        </ul>
+      <p>
+        Our Services may contain links to third-party websites or
+        services. We are not responsible for the privacy practices of
+        third-party providers. Users should review the privacy policies
+        of those third parties separately.
+      </p>
+    </section>
 
-        <h2>7. Data Security</h2>
+    <section class="card">
+      <h3>9. Your Rights and Choices</h3>
 
-        <p>
-          We take reasonable measures to help protect information associated
-          with our Services. However, no method of electronic transmission
-          or storage is completely secure.
-        </p>
+      <p>
+        Depending on your location, you may have rights regarding access
+        to information, deletion requests, restricting certain data
+        processing, and advertising preferences.
+      </p>
 
-        <h2>8. Third-Party Links and Services</h2>
+      <p>
+        Many mobile devices allow users to reset or limit advertising
+        identifiers through device settings.
+      </p>
+    </section>
 
-        <p>
-          Our Services may contain links to third-party websites or services.
-          We are not responsible for the privacy practices of those services.
-        </p>
+    <section class="card">
+      <h3>10. Changes to This Privacy Policy</h3>
 
-        <h2>9. Your Rights and Choices</h2>
+      <p>
+        We may update this Privacy Policy periodically. Changes become
+        effective when posted on this page. Continued use of the Services
+        after updates constitutes acceptance of the revised policy.
+      </p>
+    </section>
 
-        <p>
-          Depending on your location, you may have rights regarding:
-        </p>
+    <section class="card contact">
+      <h3>11. Contact Information</h3>
 
-        <ul>
-          <li>Access to information</li>
-          <li>Deletion requests</li>
-          <li>Restricting certain data processing</li>
-          <li>Advertising preferences</li>
-        </ul>
+      <p>
+        <strong>T-G-Apps LLC</strong><br>
+        14080 Nacogdoches PMB 288<br>
+        San Antonio, Texas 78247 USA
+      </p>
 
-        <h2>10. Changes to This Privacy Policy</h2>
+      <p>
+        <strong>Contact Email:</strong><br>
+        <span class="contact-email">
+          general@TAGEnterprisesApps.com
+        </span>
+      </p>
+    </section>
 
-        <p>
-          We may update this Privacy Policy periodically.
-          Changes become effective when posted on this page.
-        </p>
+    <p class="footer">
+      &copy; 2026 T-G-Apps LLC. All rights reserved.
+    </p>
 
-        <h2>11. Contact Information</h2>
-
-        <div class="contact-box">
-          <p>
-            <strong>TAG Enterprises LLC</strong><br />
-            #PMB288<br />
-            14080 Nacogdoches Rd<br />
-            San Antonio, Texas 78247 USA
-          </p>
-
-          <p>
-            Contact Email:<br />
-            <a href="mailto:general@tagenterprisesapps.com">
-              general@tagenterprisesapps.com
-            </a>
-          </p>
-        </div>
-
-      </div>
-
-      <footer>
-        © 2026 TAG Enterprises LLC. All rights reserved.
-      </footer>
-
-    </div>
   </div>
 </body>
 </html>
