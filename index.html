@@ -834,7 +834,6 @@
       const languageName = document.getElementById('languageName');
       const languageNote = document.getElementById('languageNote');
       let languageIndex = 0;
-      let languagePaused = false;
 
       function savedLanguageIndex() {
         let code = null;
@@ -939,15 +938,12 @@
           languageNote.textContent = language.note;
         });
       });
-      // Hold the name still while the pointer or keyboard focus is on the button.
-      ['mouseenter', 'focus'].forEach(function (type) { languageButton.addEventListener(type, function () { languagePaused = true; }); });
-      ['mouseleave', 'blur'].forEach(function (type) { languageButton.addEventListener(type, function () { languagePaused = false; }); });
       collectTranslatable();
       const startingLanguage = savedLanguageIndex();
       showLanguage(startingLanguage);
       if (startingLanguage !== 0) setPageLanguage(languages[startingLanguage]);
       window.setInterval(function () {
-        if (!languagePaused) showLanguage((languageIndex + 1) % languages.length);
+        showLanguage((languageIndex + 1) % languages.length);
       }, 2000);
 
       applyTheme(preferences.theme);
