@@ -101481,7 +101481,7 @@ Uf(a,b,c,d){var s=c.a,r=c.b
 return A.U_(null,a,b*(c.d-r),null,d*s,null,b*r,d*(c.c-s))}}
 A.aEn.prototype={
 $2(a,b){var s=null,r=b.b,q=b.d,p=this.a,o=p.c,n=r*0.13
-return A.jC(B.ct,A.b([A.U0(0,A.Qp("packages/tag_game_hints/assets/images/tag_hint_board.png",s,B.cC,B.oQ,s,s,s,s,s)),p.Uf(A.aS0(o.a,0.95,r*0.122,2,B.b0),q,B.a8G,r),p.Uf(A.aS0(o.b,1.05,r*0.062,s,B.b0),q,B.a8F,r),A.U_(s,A.qb(B.aY,A.dN(s,n,n),B.aQ,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.aEm(a),s,s,s,s,s,s),s,s,r*0.02,s,q*0.015,s)],t.p),B.x,B.cf)},
+return A.jC(B.ct,A.b([A.U0(0,A.Qp("packages/tag_game_hints/assets/images/max_hint_board.png",s,B.cC,B.oQ,s,s,s,s,s)),p.Uf(A.aS0(o.a,0.95,r*0.122,2,B.b0),q,B.a8G,r),p.Uf(A.aS0(o.b,1.05,r*0.062,s,B.b0),q,B.a8F,r),A.U_(s,A.qb(B.aY,A.dN(s,n,n),B.aQ,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.aEm(a),s,s,s,s,s,s),s,s,r*0.02,s,q*0.015,s)],t.p),B.x,B.cf)},
 $S:231}
 A.aEm.prototype={
 $0(){return A.es(this.a,!1).eV()},
