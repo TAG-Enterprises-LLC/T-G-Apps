@@ -109203,7 +109203,7 @@ rQ(a){return this.a8b(a)},
 a8b(a){var s=0,r=A.p(t.H),q
 var $async$rQ=A.l(function(b,c){if(b===1)return A.m(c,r)
 for(;;)switch(s){case 0:s=3
-return A.h(A.aTX(A.jx("https://www.tagenterprisesapps.com/",0,null),"_top"),$async$rQ)
+return A.h(A.aTX(A.jx("https://t-g-apps.com/",0,null),"_top"),$async$rQ)
 case 3:s=1
 break
 case 1:return A.n(q,r)}})
