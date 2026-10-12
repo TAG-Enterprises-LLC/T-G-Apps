@@ -173,6 +173,12 @@
       font-weight: 700;
       text-align: center;
     }
+    .screenshot-status {
+      flex: 1 1 100%;
+      margin: 8px 0;
+      color: #4b5563;
+      text-align: center;
+    }
     .menu-note,
     .restriction-note {
       padding: 12px;
@@ -226,7 +232,7 @@
   <a class="skip-link" href="#catalog">Skip to catalog</a>
   <main class="tag-policy-page" id="top">
     <section class="hero">
-      <div class="badge">Visual HTML version: 2026-10-12</div>
+      <div class="badge">Visual HTML version: 2026-10-12B</div>
       <h1>T-G-Apps LLC</h1>
       <h2>Card, Dice &amp; Tile Games</h2>
       <p>Explore T-G-Apps Casino, T-G-Apps House of Cards and T-G-Apps Boneyard. Rummy, Dominoes and Mahjong open menus of related games.</p>
@@ -504,20 +510,26 @@
       </div>
     </section>
 
-    <section class="card">
+    <section class="card" id="pinochle">
       <h3 class="game-name">Pinochle</h3>
       <p class="game-type">Bidding, meld and tricks</p>
       <p>Bid for the right to name trump, show your meld &mdash; marriages, runs, pinochles and arounds &mdash; then take tricks to win the counters. Partners must make the bid or go set. First team to 1500 wins.</p>
       <span class="pill family">Children &amp; Adults</span>
       <span class="pill">No wagering</span>
+      <div class="shots" data-gallery="Pinochle" aria-live="polite">
+        <p class="screenshot-status">Loading Pinochle screenshots&hellip;</p>
+      </div>
     </section>
 
-    <section class="card">
+    <section class="card" id="canasta">
       <h3 class="game-name">Canasta</h3>
       <p class="game-type">Partnership draw, meld and canastas</p>
       <p>Draw from the stock or take the whole discard pile, meld sets of the same rank with your partner, and build canastas &mdash; melds of seven cards. Wild cards help, but they freeze the pile. First team to 5000 wins.</p>
       <span class="pill family">Children &amp; Adults</span>
       <span class="pill">No wagering</span>
+      <div class="shots" data-gallery="Canasta" aria-live="polite">
+        <p class="screenshot-status">Loading Canasta screenshots&hellip;</p>
+      </div>
     </section>
 
 <h2 class="section-title" id="boneyard">T-G-Apps Boneyard</h2>
@@ -602,5 +614,51 @@
 
     <p class="footer">&copy; 2026 T-G-Apps LLC. All rights reserved.<a class="back-to-top" href="#top">Back to top</a></p>
   </main>
+  <script>
+    (function () {
+      'use strict';
+
+      var galleries = Array.from(document.querySelectorAll('[data-gallery]'));
+      if (!galleries.length) return;
+
+      fetch('https://www.t-g-apps.com/')
+        .then(function (response) {
+          if (!response.ok) throw new Error('Website returned ' + response.status);
+          return response.text();
+        })
+        .then(function (html) {
+          var source = new DOMParser().parseFromString(html, 'text/html');
+
+          galleries.forEach(function (target) {
+            var gameName = target.getAttribute('data-gallery');
+            var heading = Array.from(source.querySelectorAll('.game-name')).find(function (candidate) {
+              return candidate.textContent.trim() === gameName;
+            });
+            var sourceGallery = heading && heading.closest('.card').querySelector('.shots');
+
+            if (!sourceGallery || !sourceGallery.children.length) {
+              throw new Error(gameName + ' gallery was not found');
+            }
+
+            target.replaceChildren.apply(
+              target,
+              Array.from(sourceGallery.children).map(function (figure) {
+                return document.importNode(figure, true);
+              })
+            );
+            target.removeAttribute('aria-live');
+          });
+        })
+        .catch(function () {
+          galleries.forEach(function (target) {
+            var gameName = target.getAttribute('data-gallery');
+            target.innerHTML =
+              '<p class="screenshot-status">Screenshots could not be loaded. ' +
+              '<a href="https://www.t-g-apps.com/#house-of-cards">View ' +
+              gameName + ' on the website</a>.</p>';
+          });
+        });
+    }());
+  </script>
 </body>
 </html>
