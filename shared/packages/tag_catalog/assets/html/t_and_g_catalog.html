@@ -621,7 +621,7 @@
       var galleries = Array.from(document.querySelectorAll('[data-gallery]'));
       if (!galleries.length) return;
 
-      fetch('https://www.t-g-apps.com/')
+      fetch('/')
         .then(function (response) {
           if (!response.ok) throw new Error('Website returned ' + response.status);
           return response.text();
