@@ -640,16 +640,12 @@
               throw new Error(gameName + ' gallery was not found');
             }
 
-            target.replaceChildren.apply(
-              target,
-              Array.from(sourceGallery.children).map(function (figure) {
-                return document.importNode(figure, true);
-              })
-            );
+            target.innerHTML = sourceGallery.innerHTML;
             target.removeAttribute('aria-live');
           });
         })
-        .catch(function () {
+        .catch(function (error) {
+          console.error('Catalog screenshot galleries could not be loaded.', error);
           galleries.forEach(function (target) {
             var gameName = target.getAttribute('data-gallery');
             target.innerHTML =
