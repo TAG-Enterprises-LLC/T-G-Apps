@@ -4,6 +4,7 @@
 // Ops: createSpades(rules Int32Array) -> handle; loadWeights(handle, Uint8Array);
 // destroy(handle); spades(handle, op, view Int32Array, args Float64Array) -> Float64Array;
 // createRummy(rules Int32Array) -> handle; rummy(handle, op, view, args) -> Float64Array; rummyGolden() -> [hi32, lo32]
+// createEuchre(rules Int32Array) -> handle; euchre(handle, op, view, args) -> Float64Array; euchreGolden() -> [hi32, lo32]
 // (layout in cardai_web.c); spadesGolden() -> [hi32, lo32]; spadesBench(samples) -> ms;
 // bridge(op, view Int32Array, args Float64Array) -> Float64Array; bridgeMeaning(words) -> Float64Array.
 // The page stops a running search by terminating this worker.
@@ -58,6 +59,32 @@ function handle(op, a) {
         });
       } finally { M._free(pv); M._free(pa); }
     }
+    case 'createEuchre': {
+      const rules = a[0];
+      const p = copyIn(rules);
+      try {
+        const ctx = M._cai_web_euchre_create(p, rules.length);
+        if (!ctx) throw new Error('cai_web_euchre_create failed');
+        return ctx;
+      } finally { M._free(p); }
+    }
+    case 'euchre': {
+      const view = a[2], args = a[3];
+      const n = M._cai_web_out_max();
+      const pv = copyIn(view), pa = copyIn(args);
+      try {
+        return withHeap(n * 8, (po) => {
+          M._cai_web_euchre(a[0], a[1], pv, view.length, pa, po);
+          return new Float64Array(M.HEAPF64.buffer, po, n).slice();
+        });
+      } finally { M._free(pv); M._free(pa); }
+    }
+    case 'euchreGolden':
+      return withHeap(16, (po) => {
+        const rc = M._cai_web_euchre_golden(po);
+        if (rc !== 0) throw new Error('cai_web_euchre_golden failed: ' + rc);
+        return [M.HEAPF64[po >> 3] >>> 0, M.HEAPF64[(po >> 3) + 1] >>> 0];
+      });
     case 'rummyGolden':
       return withHeap(16, (po) => {
         const rc = M._cai_web_rummy_golden(po);
