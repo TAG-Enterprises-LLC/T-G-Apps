@@ -1,11 +1,11 @@
 {
-    "name": "T-G-Apps 21",
-    "short_name": "T-G-Apps 21",
+    "name": "T-G-Apps Dominoes",
+    "short_name": "T-G-Apps Dominoes",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "T-G-Apps 21 game",
+    "description": "T-G-Apps Dominoes game",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
