@@ -1,82 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Play T-G-Apps YZ</title>
-
-  <style>
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      background: #050b12;
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .back-link {
-      width: 100%;
-      padding: 14px 18px;
-      background: #071522;
-      color: #d8f4ff;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.35);
-    }
-
-    .back-link:hover {
-      color: #ffffff;
-      background: #0b2238;
-    }
-
-    .phone-wrap {
-      flex: 1;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-    }
-
-    .phone-shell {
-      height: calc(100vh - 70px);
-      aspect-ratio: 9 / 19.5;
-      max-width: 100vw;
-      background: #000;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 0 28px rgba(0,0,0,0.75);
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-      background: #000;
-    }
-  </style>
+  <link rel="stylesheet" href="phone_game_frame.css" />
 </head>
-
 <body>
-  <a class="back-link" href="/" target="_top">← Back to T-G-Apps</a>
+  <main class="page-wrap">
+    <div class="play-area">
+      <div class="play-column">
+        <div class="top-bar">
+          <a class="back-link" href="/#boneyard">&larr; Back to T-G-Apps Games</a>
+          <div class="title">T-G-Apps YZ</div>
+        </div>
 
-  <div class="phone-wrap">
-    <div class="phone-shell">
-      <iframe
-        src="tag_yz/"
-        title="T-G-Apps YZ"
-        allow="autoplay; fullscreen"
-      ></iframe>
+        <section class="phone-frame" aria-label="T-G-Apps YZ playable web app">
+          <iframe
+            class="game-frame"
+            src="/tag_yz/"
+            title="T-G-Apps YZ"
+            allow="autoplay; fullscreen"
+          ></iframe>
+        </section>
+      </div>
+
+      <aside class="app-games" data-app="boneyard" data-game="yz"></aside>
     </div>
-  </div>
+  </main>
   <script src="play_page_i18n.js"></script>
 </body>
 </html>
