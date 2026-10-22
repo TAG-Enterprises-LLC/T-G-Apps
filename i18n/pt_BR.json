@@ -53,7 +53,7 @@
   "Ante, look at five cards and one dealer card, then fold or raise. The dealer must qualify with ace-king or better, and big hands pay up to 100 to 1 on the raise.": "Pague o ante, veja suas cinco cartas e uma carta do crupiê, e então desista ou aumente. O crupiê se qualifica com ás-rei ou melhor, e mãos fortes pagam até 100 para 1 sobre o aumento.",
   "Classic card games": "Jogos de cartas clássicos",
   "Classic card games and a Rummy game menu in one app, from partnership trick-taking, contract play and meld to draw-and-discard, canastas and pegging. Play a quick hand or a full game to the target score, learn the rules as you go, and let the robots fill any empty seat.": "Jogos de cartas clássicos e um menu de jogos de Rummy em um só app: vazas em dupla, contratos e combinações, comprar e descartar, canastras e contagem com pinos. Jogue uma mão rápida ou uma partida completa até a pontuação alvo, aprenda as regras jogando e deixe os robôs ocuparem os lugares vazios.",
-  "Games: Hearts, Spades, Euchre, Bridge, Rummy, Cribbage, Pinochle, Canasta.": "Jogos: Copas, Espadas, Euchre, Bridge, Rummy, Cribbage, Pinochle, Canasta.",
+  "Games: Hearts, Spades, Euchre, Bridge, Rummy, Cribbage, Pinochle, Canasta.": "Jogos: Copas, Espadas, Euchre, Bridge, Rummy, Cribbage, Pinochle, Canastra.",
   "Children & Adults": "Crianças e adultos",
   "No wagering": "Sem apostas",
   "8 game entries, including the Rummy menu": "8 opções de jogo, incluindo o menu de Rummy",
@@ -126,5 +126,6 @@
   "Your browser did not allow this page to close automatically. Use the browser Back, Home, or Close control.": "Seu navegador não permitiu que esta página fechasse automaticamente. Use o botão Voltar, Início ou Fechar do navegador.",
   "Dominoes": "Dominó",
   "Hearts": "Copas",
-  "Spades": "Espadas"
+  "Spades": "Espadas",
+  "Canasta": "Canastra"
 }
