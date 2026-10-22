@@ -126,5 +126,8 @@
   "Your browser did not allow this page to close automatically. Use the browser Back, Home, or Close control.": "Votre navigateur n’a pas permis à cette page de se fermer automatiquement. Utilisez le bouton Retour, Accueil ou Fermer du navigateur.",
   "Dominoes": "Dominos",
   "Hearts": "Cœurs",
-  "Spades": "Piques"
+  "Spades": "Piques",
+  "Play Hearts Online": "Jouer aux Cœurs en ligne",
+  "Play Spades Online": "Jouer aux Piques en ligne",
+  "Play Dominoes Online": "Jouer aux Dominos en ligne"
 }
