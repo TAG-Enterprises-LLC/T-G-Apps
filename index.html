@@ -871,7 +871,8 @@
         if (translations[key]) return translations[key];
         for (const [pattern, template] of templates) {
           const match = key.match(pattern);
-          if (match && translations[template]) return translations[template].replace('{0}', match[1]);
+          // {0} is a game name: shown in the language's own name for the game.
+          if (match && translations[template]) return translations[template].replace('{0}', t(match[1]));
         }
         return english;
       }
