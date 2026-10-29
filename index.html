@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 16px;
-      background: #f6f1e4;
+      background: #4169e1;
       color: #111827;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 16px;
@@ -195,14 +195,11 @@
     .dialog-close { position: absolute; right: 10px; top: 10px; width: 38px; height: 38px; border: 1px solid #d6a633; border-radius: 50%; background: #fff8df; color: #063a25; font-size: 22px; cursor: pointer; }
     .setting-row { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: center; padding: 14px 0; border-top: 1px solid #f0e3bf; }
     .row-label, .setting-row label { font-weight: 700; color: #063a25; }
-    .theme-choices { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
-    .theme-choice { min-height: 44px; padding: 8px; border: 1px solid #d6a633; border-radius: 8px; color: #063a25; background: #fff8df; cursor: pointer; }
-    .theme-choice[aria-pressed="true"] { background: #063a25; color: #ffd966; }
     .toggle-line { display: flex; align-items: center; gap: 10px; }
     input[type="range"] { max-width: 100%; accent-color: #063a25; }
     .dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
     .exit-warning { display: none; margin-top: 14px; padding: 12px; background: #fff8df; }
-    @media(max-width:540px) { .setting-row { grid-template-columns: 1fr; gap: 8px; } .theme-choices { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+    @media(max-width:540px) { .setting-row { grid-template-columns: 1fr; gap: 8px; } }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
     /* The T-G-Apps logo stands in for the company name at the top of the page.
        It is the logo the games already publish under /shared/. */
@@ -627,18 +624,7 @@
     <div class="dialog-inner">
       <button class="dialog-close" type="button" data-close-dialog aria-label="Close settings">×</button>
       <h2 id="settingsDialogTitle">Website Settings</h2>
-      <p>Choose the homepage background and music preferences for this browser. Your selections are saved on this device.</p>
-      <div class="setting-row">
-        <span class="row-label">Background</span>
-        <div class="theme-choices" id="themeChoices">
-          <button class="theme-choice" type="button" data-theme="felt">Catalog Cream</button>
-          <button class="theme-choice" type="button" data-theme="coral">Coral Reef</button>
-          <button class="theme-choice" type="button" data-theme="desert">Desert Sunset</button>
-          <button class="theme-choice" type="button" data-theme="forest">Winter Forest</button>
-          <button class="theme-choice" type="button" data-theme="space">Space</button>
-          <button class="theme-choice" type="button" data-theme="wildflowers">Wildflowers</button>
-        </div>
-      </div>
+      <p>Choose the music preferences for this browser. Your selections are saved on this device.</p>
       <div class="setting-row">
         <label for="musicToggle">Background music</label>
         <div class="toggle-line"><input id="musicToggle" type="checkbox"><span id="musicStatus">Off</span></div>
@@ -682,16 +668,8 @@
     (function () {
       'use strict';
 
-      const themes = {
-        felt: 'none',
-        coral: "url('images/coral_reef_panorama.png')",
-        desert: "url('images/desert_sunset_panorama.png')",
-        forest: "url('images/winter_forest_panorama.png')",
-        space: "url('images/space_planets_panorama.png')",
-        wildflowers: "url('images/wildflowers_panorama.png')"
-      };
       const tracks = [2, 3, 4, 5, 6, 7, 8, 9].map(function (n) { return 'audio/bg_track_' + n + '.mp3'; });
-      const defaultSettings = { theme: 'felt', music: false, volume: 55 };
+      const defaultSettings = { music: false, volume: 55 };
       const audio = new Audio();
       let currentTrack = '';
       let unavailableTracks = new Set();
@@ -709,18 +687,6 @@
 
       function savePreferences() {
         try { localStorage.setItem('tgWebsiteSettings', JSON.stringify(preferences)); } catch (_) {}
-      }
-
-      function applyTheme(name) {
-        preferences.theme = themes[name] ? name : 'felt';
-        document.body.style.backgroundImage = themes[preferences.theme];
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
-        document.body.style.backgroundAttachment = 'fixed';
-        document.querySelectorAll('[data-theme]').forEach(function (button) {
-          button.setAttribute('aria-pressed', String(button.dataset.theme === preferences.theme));
-        });
-        savePreferences();
       }
 
       function updateAudioLabels() {
@@ -782,9 +748,6 @@
           if (event.target === dialog) dialog.close();
         });
       });
-      document.querySelectorAll('[data-theme]').forEach(function (button) {
-        button.addEventListener('click', function () { applyTheme(button.dataset.theme); });
-      });
       document.getElementById('musicToggle').addEventListener('change', function (event) { setMusic(event.target.checked); });
       document.getElementById('volumeSlider').addEventListener('input', function (event) {
         preferences.volume = Number(event.target.value);
@@ -795,7 +758,6 @@
       document.getElementById('resetWebsiteSettings').addEventListener('click', function () {
         preferences = Object.assign({}, defaultSettings);
         audio.pause();
-        applyTheme(preferences.theme);
         updateAudioLabels();
         savePreferences();
       });
@@ -958,7 +920,6 @@
         showLanguage((languageIndex + 1) % languages.length);
       }, 2000);
 
-      applyTheme(preferences.theme);
       updateAudioLabels();
     }());
   </script>
