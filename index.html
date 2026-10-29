@@ -205,10 +205,35 @@
        It is the logo the games already publish under /shared/. */
     .site-logo { max-width: 440px; margin: 0 auto 12px auto; }
     .site-logo img { display: block; width: 100%; height: auto; border-radius: 12px; }
+    /* Ad rails: a gold-bordered white box on each side of the page, shown only
+       where the screen is wide enough. Each holds one vertical ad unit:
+       160x600 (wide skyscraper) from 1340px, 300x600 (half page) from 1620px. */
+    .ad-rail { display: none; }
+    .ad-box { position: sticky; top: 16px; padding: 8px; border: 2px solid #d6a633; border-radius: 12px; background: #ffffff; }
+    .ad-label { margin: 0 0 6px 0; color: #4b5563; font-size: 11px; text-align: center; text-transform: uppercase; letter-spacing: .06em; }
+    .ad-slot { display: block; width: 160px; height: 600px; overflow: hidden; }
+    @media (min-width: 1340px) {
+      .page-layout { display: grid; grid-template-columns: 1fr minmax(0, 900px) 1fr; column-gap: 24px; }
+      .page-layout > .tag-policy-page { margin: 0; }
+      .ad-rail { display: block; }
+      .ad-rail-left { justify-self: end; }
+      .ad-rail-right { justify-self: start; }
+    }
+    @media (min-width: 1620px) {
+      .ad-slot { width: 300px; }
+    }
   </style>
 </head>
 <body>
   <a class="skip-link" href="#games">Skip to games</a>
+  <div class="page-layout">
+  <aside class="ad-rail ad-rail-left" aria-label="Advertisement">
+    <div class="ad-box">
+      <p class="ad-label">Advertisement</p>
+      <!-- Left ad unit: paste the ad network's code inside this div. -->
+      <div class="ad-slot" id="adSlotLeft"></div>
+    </div>
+  </aside>
   <main class="tag-policy-page" id="top">
     <section class="hero">
       <div class="badge">Visual HTML version: 2026-10-01A</div>
@@ -620,6 +645,14 @@
       </nav>
     <p class="footer">&copy; 2026 T-G-Apps LLC. All rights reserved.</p>
   </main>
+  <aside class="ad-rail ad-rail-right" aria-label="Advertisement">
+    <div class="ad-box">
+      <p class="ad-label">Advertisement</p>
+      <!-- Right ad unit: paste the ad network's code inside this div. -->
+      <div class="ad-slot" id="adSlotRight"></div>
+    </div>
+  </aside>
+  </div>
   <dialog id="settingsDialog" aria-labelledby="settingsDialogTitle">
     <div class="dialog-inner">
       <button class="dialog-close" type="button" data-close-dialog aria-label="Close settings">×</button>
