@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Explore T-G-Apps Casino, House of Cards and Boneyard. Play card, dice and tile games online in your browser.">
   <title>T-G-Apps LLC | Games</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1354420163498731"
+     crossorigin="anonymous"></script>
   <style>
     body {
       margin: 0;
@@ -30,9 +32,6 @@
       border-radius: 12px;
       background: #ffffff;
     }
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1354420163498731"
-     crossorigin="anonymous"></script>
-    )
     .hero {
       background: #063a25;
       color: #ffffff;
@@ -209,12 +208,15 @@
     .site-logo { max-width: 440px; margin: 0 auto 12px auto; }
     .site-logo img { display: block; width: 100%; height: auto; border-radius: 12px; }
     /* Ad rails: a gold-bordered white box on each side of the page, shown only
-       where the screen is wide enough. Each holds one vertical ad unit:
-       160x600 (wide skyscraper) from 1340px, 300x600 (half page) from 1620px. */
+       where the screen is wide enough. Each holds a vertical ad unit:
+       160x600 (wide skyscraper) from 1340px, 300x600 (half page) from 1620px.
+       On wide screens at least 920px tall, a 300x250 (medium rectangle) unit
+       fills the room below it. */
     .ad-rail { display: none; }
-    .ad-box { position: sticky; top: 16px; padding: 8px; border: 2px solid #d6a633; border-radius: 12px; background: #ffffff; }
-    .ad-label { margin: 0 0 6px 0; color: #4b5563; font-size: 11px; text-align: center; text-transform: uppercase; letter-spacing: .06em; }
+    .ad-box { position: sticky; top: 12px; padding: 6px; border: 2px solid #d6a633; border-radius: 12px; background: #ffffff; }
+    .ad-label { margin: 0 0 4px 0; color: #4b5563; font-size: 11px; text-align: center; text-transform: uppercase; letter-spacing: .06em; }
     .ad-slot { display: block; width: 160px; height: 600px; overflow: hidden; }
+    .ad-slot-lower { display: none; margin-top: 6px; height: 250px; }
     @media (min-width: 1340px) {
       .page-layout { display: grid; grid-template-columns: 1fr minmax(0, 900px) 1fr; column-gap: 24px; }
       .page-layout > .tag-policy-page { margin: 0; }
@@ -224,6 +226,9 @@
     }
     @media (min-width: 1620px) {
       .ad-slot { width: 300px; }
+    }
+    @media (min-width: 1620px) and (min-height: 920px) {
+      .ad-slot-lower { display: block; }
     }
   </style>
 </head>
@@ -235,6 +240,8 @@
       <p class="ad-label">Advertisement</p>
       <!-- Left ad unit: paste the ad network's code inside this div. -->
       <div class="ad-slot" id="adSlotLeft"></div>
+      <!-- Lower left ad unit (300x250): paste the ad network's code inside this div. -->
+      <div class="ad-slot ad-slot-lower" id="adSlotLeftLower"></div>
     </div>
   </aside>
   <main class="tag-policy-page" id="top">
@@ -653,6 +660,8 @@
       <p class="ad-label">Advertisement</p>
       <!-- Right ad unit: paste the ad network's code inside this div. -->
       <div class="ad-slot" id="adSlotRight"></div>
+      <!-- Lower right ad unit (300x250): paste the ad network's code inside this div. -->
+      <div class="ad-slot ad-slot-lower" id="adSlotRightLower"></div>
     </div>
   </aside>
   </div>
