@@ -217,6 +217,7 @@
     .ad-label { margin: 0 0 4px 0; color: #4b5563; font-size: 11px; text-align: center; text-transform: uppercase; letter-spacing: .06em; }
     .ad-slot { display: block; width: 160px; height: 600px; overflow: hidden; }
     .ad-slot-lower { display: none; margin-top: 6px; height: 250px; }
+    .ad-slot .adsbygoogle { display: block; width: 100%; height: 100%; }
     @media (min-width: 1340px) {
       .page-layout { display: grid; grid-template-columns: 1fr minmax(0, 900px) 1fr; column-gap: 24px; }
       .page-layout > .tag-policy-page { margin: 0; }
@@ -238,10 +239,10 @@
   <aside class="ad-rail ad-rail-left" aria-label="Advertisement">
     <div class="ad-box">
       <p class="ad-label">Advertisement</p>
-      <!-- Left ad unit: paste the ad network's code inside this div. -->
-      <div class="ad-slot" id="adSlotLeft"></div>
-      <!-- Lower left ad unit (300x250): paste the ad network's code inside this div. -->
-      <div class="ad-slot ad-slot-lower" id="adSlotLeftLower"></div>
+      <!-- Left ad unit (AdSense "Left Top"). -->
+      <div class="ad-slot" id="adSlotLeft"><ins class="adsbygoogle" data-ad-client="ca-pub-1354420163498731" data-ad-slot="5245507605"></ins></div>
+      <!-- Lower left ad unit, 300x250 (AdSense "Left Bottom"). -->
+      <div class="ad-slot ad-slot-lower" id="adSlotLeftLower"><ins class="adsbygoogle" data-ad-client="ca-pub-1354420163498731" data-ad-slot="8252486888"></ins></div>
     </div>
   </aside>
   <main class="tag-policy-page" id="top">
@@ -658,10 +659,10 @@
   <aside class="ad-rail ad-rail-right" aria-label="Advertisement">
     <div class="ad-box">
       <p class="ad-label">Advertisement</p>
-      <!-- Right ad unit: paste the ad network's code inside this div. -->
-      <div class="ad-slot" id="adSlotRight"></div>
-      <!-- Lower right ad unit (300x250): paste the ad network's code inside this div. -->
-      <div class="ad-slot ad-slot-lower" id="adSlotRightLower"></div>
+      <!-- Right ad unit (AdSense "Right Top"). -->
+      <div class="ad-slot" id="adSlotRight"><ins class="adsbygoogle" data-ad-client="ca-pub-1354420163498731" data-ad-slot="6726110236"></ins></div>
+      <!-- Lower right ad unit, 300x250 (AdSense "Right Bottom"). -->
+      <div class="ad-slot ad-slot-lower" id="adSlotRightLower"><ins class="adsbygoogle" data-ad-client="ca-pub-1354420163498731" data-ad-slot="5859751129"></ins></div>
     </div>
   </aside>
   </div>
@@ -966,6 +967,17 @@
       }, 2000);
 
       updateAudioLabels();
+
+      // AdSense units: the CSS sets each slot's size, so only the slots this
+      // screen shows (rails hidden on narrow screens, lower slots on short ones)
+      // are requested. Each push() fills the next unfilled .adsbygoogle on the
+      // page, so hidden units drop the class first.
+      const adUnits = Array.from(document.querySelectorAll('.ad-slot .adsbygoogle'));
+      adUnits.forEach(function (unit) { if (!unit.offsetWidth) unit.classList.remove('adsbygoogle'); });
+      adUnits.forEach(function (unit) {
+        if (!unit.offsetWidth) return;
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (_) {}
+      });
     }());
   </script>
 </body>
